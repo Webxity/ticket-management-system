@@ -197,16 +197,14 @@
     
 
 
-var select = document.getElementById("components");
+/*var select = document.getElementById("components");
 select.onchange = function(){
     var selected_value = select.options[select.selectedIndex].value;
     
 if(selected_value=="empty") {
    // $("#privatecourse").val('no');}
 
-}
-
-
-
-
+     }
+  }
+ */
 }(jQuery));
