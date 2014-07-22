@@ -11,7 +11,5 @@
 |
 */
 
-Route::any('/', function()
-{
-    App::abort(401);
-});
+Route::controller('/', 'Webxity\DashboardController');
+

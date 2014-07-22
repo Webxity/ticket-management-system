@@ -17,6 +17,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
+	app_path(). '/libraries',
 
 ));
 
@@ -79,3 +80,46 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+
+/*  REgister custom events here  */
+
+Event::listen('ticket_created', 'Webxity\TicketCreatedHandler');
+
+Validator::extend('custom_url', function($attribute, $value, $parameters)
+{
+        $findme   = 'http://';
+        $pos = strpos($value, $findme);
+        
+        if($pos) 
+        {
+                $validator = Validator::make( ['url' => $value],[ 'url'    => 'url' ]);
+                if ($validator->fails()) {
+                    // The given data did not pass validation
+                   return false; 
+
+                } else {
+
+                    return true;
+                }
+        }
+        else{
+            
+            $value="http://". $value; 
+               $validator = Validator::make( ['url' => $value],[ 'url'    => 'url' ]);
+                if ($validator->fails()) {
+                    // The given data did not pass validation
+                   return false; 
+
+                } else {
+
+                    return true;
+                }
+            
+            
+        }
+        
+});
+
+

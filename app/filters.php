@@ -13,13 +13,13 @@
 
 App::before(function($request)
 {
-	//
+	View::share('isAjax', Request::Ajax());
 });
 
 
 App::after(function($request, $response)
-{
-	//
+{ 
+    //
 });
 
 /*
@@ -87,4 +87,26 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+/**
+ * Custom 404 page
+ */
+App::missing(function($exception)
+{
+//    return Response::view('error404', array(), 404);
+});
+
+App::error(function(Exception $exception)
+{
+//    return Response::view('error404', array(), 404);
+});
+
+Route::filter('role_access', function()
+{
+  if ( !Request::Ajax() && Auth::user()->role !== 'admin') {
+     return  View::make('access_denied') ; 
+  
+   }
+    
 });
