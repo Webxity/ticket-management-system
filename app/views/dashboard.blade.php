@@ -16,8 +16,16 @@
     </div>
 </div><!-- /.row -->
 
-
-
+<div class="row">
+    <div class="col-lg-10">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-money"></i>Calendar</h3>
+            </div>
+				<div id='calendar'></div>
+		</div>
+    </div>
+</div>        
 <div class="row">
     
  <div class="col-lg-10">

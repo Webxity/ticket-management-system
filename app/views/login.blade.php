@@ -14,6 +14,16 @@
     </div>
     <div class="col-md-6 col-md-offset-3" id="login-box">
         <div class="breadcrumb">
+        @if(!empty(Session::has('msg')))
+        	<div class="alert alert-dismissable alert-danger">
+                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                         <p>The following errors have occurred:</p>
+                         <ul id="form-errors">
+                         <li>{{ Session::get('msg') }}</li>                 
+                         </ul>
+                        
+                </div>
+          @endif
             <form class="form-horizontal" role="form" name="login" action="{{ url( 'verifylogin' ) }}" method="post" >
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>

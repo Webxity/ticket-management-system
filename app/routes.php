@@ -12,4 +12,4 @@
 */
 
 Route::controller('/', 'Webxity\DashboardController');
-
+//Route::post('postUserStatus', 'Webxity\DashboardController@UpdateUserStatus');

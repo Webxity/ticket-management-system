@@ -9,7 +9,7 @@ class HelperFunc {
     public static function get_date($date) 
     {
          
-         echo date_format($date, 'j M Y ( g:i a ) ');
+         return date_format($date, 'j M Y ( g:i a ) ');
 
     }
     

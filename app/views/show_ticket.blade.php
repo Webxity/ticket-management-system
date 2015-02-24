@@ -65,7 +65,6 @@
            @if(count ( $convo_msg) > 0 )
             @foreach($convo_msg as $convo) 
              <blockquote class ="convo-message">
-                
               <p>{{{$convo->message. "."}}}</p>
               <small>{{{" By " . $convo->user_name . "  At  " . date('m/d/Y  (h:i:s a)', strtotime($convo->created_at)) }}}</small>
             </blockquote>

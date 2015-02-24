@@ -23,13 +23,15 @@
         <div class="panel-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped tablesorter">
-                    <thead>
+                 @if(Auth::user()->role == 'admin')   
+                 <thead>
                     <tr>
                         <th> # <i class="fa fa-sort"></i></th>
                         <th> Name <i class="fa fa-sort"></i></th>
                         <th> Email <i class="fa fa-sort"></i></th>
                         <th> Role <i class="fa fa-sort"></i></th>
                         <th> Modify </th>
+                        <th> Status </th>
                         <th> Delete </th>
                     </tr>
                     </thead>
@@ -43,12 +45,42 @@
                         <td> {{{ $user->email }}}</td>
                         <td> {{{ $user->role }}}</td>
                         <td><a href="{{{ url('edit-user/'.$user->id )}}}"> Edit </a></td>
+                     @if($user->status == '1')   
+                        <td><a onclick="UpdateStatus('{{ $user->id }}');" id="{{ $user->status }}" class="Status{{ $user->id }} btn btn-success">Active</a></td>
+                     @else
+                     	<td><a onclick="UpdateStatus('{{ $user->id }}');" id="{{ $user->status }}" class="Status{{ $user->id }} btn btn-danger">Deactive</a></td>
+                     @endif     
                         <td> <button    class ="btn btn-danger"   data-delete-id="{{$user->id}}"  data-session-id="{{Session::token()}}"  data-page="user">Remove</button></td>
                    </tr>
                     <?php $id++; ?>
                     @endforeach
                     @endif
                     </tbody>
+                   @else
+                   <thead>
+                    <tr>
+                        <th> # <i class="fa fa-sort"></i></th>
+                        <th> Name <i class="fa fa-sort"></i></th>
+                        <th> Email <i class="fa fa-sort"></i></th>
+                        <th> Role <i class="fa fa-sort"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody id="project-table" >
+                    <?php $id = 1; ?>
+                    @if($users)
+                    @foreach($users as $user)
+                    <tr>
+                        <td> <?php echo $id; ?> </td>
+                        <td> {{{ $user->name }}}</td>
+                        <td> {{{ $user->email }}}</td>
+                        <td> {{{ $user->role }}}</td>
+                   </tr>
+                    <?php $id++; ?>
+                    @endforeach
+                    @endif
+                    </tbody>
+                   @endif 
+                    
                 </table>
             </div>
             <!-- <div class="text-right">
@@ -56,6 +88,27 @@
              </div>-->
         </div>
     </div>
+<script type="text/javascript">
 
+function UpdateStatus(id)
+{
+	var status = $('.Status'+id).attr('id');
+	
+	$.ajax({
+		type : "POST",
+		url  : "{{ URL::action('Webxity\DashboardController@postUpdateUserStatus') }}",
+		data : {id:id,status:status},
+		success:function(d)
+		{
+			if(d == 1)
+			{
+				window.reload();
+			}
+		}
+	});
+	
+}
+
+</script>
 </div><!-- form end -->
 @stop
