@@ -18,19 +18,29 @@
             <!-- Messages After Submit --> 
             
             @if( Session::pull('submit'))
-              @if( $errors->count() > 0 )
-               <div class="alert alert-dismissable alert-danger">
-                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                 <p>The following errors have occurred:</p>
-                {{ $errors->first('project', '<p>:message</p>') }}
-             </div>
-               @else 
-                 <div class=" alert alert-dismissable alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ "Project Created Successfully" }} 
+			   @if(empty(Session::has('message')))
+                  @if( $errors->count() > 0 )
+                   <div class="alert alert-dismissable alert-danger">
+                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                     <p>The following errors have occurred:</p>
+                    {{ $errors->first('project', '<p>:message</p>') }}
                  </div>
-
-               @endif
+                   @else 
+                     <div class=" alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ "Project Created Successfully" }} 
+                     </div>
+                   @endif
+                @else   
+				<div class="alert alert-dismissable alert-danger">
+                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                         <p>The following errors have occurred:</p>
+                         <ul id="form-errors">
+                         <li>{{ Session::get('message') }}</li>                 
+                         </ul>
+                        
+                </div>
+                @endif 
             @endif 
                <!-- Messages After Submit --> 
                

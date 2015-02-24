@@ -83,10 +83,7 @@ Route::filter('guest', function()
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+	
 });
 
 /**
@@ -104,7 +101,8 @@ App::error(function(Exception $exception)
 
 Route::filter('role_access', function()
 {
-  if ( !Request::Ajax() && Auth::user()->role !== 'admin') {
+	var_dump(Auth::user()->role);
+  if ( !Request::Ajax() && Auth::user()->role !== 'admin' && Auth::user()->role !== 'client') {
      return  View::make('access_denied') ; 
   
    }

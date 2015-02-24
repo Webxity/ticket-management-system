@@ -57,13 +57,27 @@
                     <input class="form-control"  type="password" name="password" value="<?php echo Input::old('password')?>"  placeholder="Password">
                   
                 </div>
+               @if( Auth::user()->role == 'admin')
                <div class="form-group">
                     <label for="user_role">User Role </label>
                    <br/> 
-               {{  Form::select('role', [ 'client' => 'Client', 'admin' => 'Admin',  'developer' => 'Developer' , 
-                                       'analyst' => 'Business Analyst'], Input::old('role') , ['class' => 'form-control', 'placeholder' => 'Role'] )  }}
+               {{  Form::select('role', ['admin' => 'Admin', 'client' => 'Client', 'developer' => 'Developer'], 
+               Input::old('role') , ['class' => 'form-control', 'placeholder' => 'Role'] )  }}
               
                </div> 
+               @endif
+               
+               
+               @if( Auth::user()->role == 'client')
+               <div class="form-group">
+                    <label for="user_role">User Role </label>
+                   <br/> 
+               {{  Form::select('role', [ 'developer' => 'Developer'], Input::old('role') , ['class' => 'form-control', 'placeholder' => 'Role'] )  }}
+              
+               </div> 
+               @endif
+               
+               
                <button type="submit" class="btn btn-default" name="submit"> Create </button>
            {{ Form::close() }}
         </div><!-- form end -->

@@ -24,12 +24,43 @@ class User extends Eloquent implements UserInterface, RemindableInterface
      */
     protected $hidden = array('password', 'remember_token');
 
-    protected $fillable = array('name', 'password', 'email', 'role');
+    protected $fillable = array('name', 'password', 'email', 'role','status');
 
 
     public function getName()
     {
         return $this->name;
     }
+	
+	public function getId()
+    {
+        return $this->id;
+    }
+	
+	public static function GetUserNameById($user_id)
+	{
+		$row = DB::table('users')->where('id', $user_id)->first();
+		if(count($row) > 0)
+		{
+			return $row;
+   		}
+		else
+		{
+			return false;
+		}	
+	}
+	
+	public static function GetUserName($user_email)
+	{
+		$row = DB::table('users')->where('email', $user_email)->first();
+		if(count($row) > 0)
+		{
+			return $row;
+   		}
+		else
+		{
+			return false;
+		}	
+	}
 
 }

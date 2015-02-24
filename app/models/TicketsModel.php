@@ -1,7 +1,9 @@
 <?php
 namespace Webxity;
 
-use Eloquent; 
+use 
+DB,
+Eloquent; 
 
 class TicketsModel extends Eloquent
 {
@@ -20,6 +22,19 @@ class TicketsModel extends Eloquent
      */
    // protected $hidden = array('password', 'remember_token');
 
-   protected $fillable = array('title', 'description', 'status', 'url' , 'project' , 'priority');
+   protected $fillable = array('title', 'description', 'status', 'url' , 'project' , 'priority' , 'developer','owner_id' ,'due_date');
 
+    public static function GetTickets($user_id)
+    {
+        $GetRowsByUserId = DB::table('tickets')->where('owner_id', $user_id)->get();
+        if(count($GetRowsByUserId) > 0)
+        {
+            return $GetRowsByUserId;
+        }
+        else
+        {
+            return false;
+        }   
+    }
+    
 }
