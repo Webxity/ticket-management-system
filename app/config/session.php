@@ -29,7 +29,7 @@ return array(
 	|
 	*/
 
-	'lifetime' => 12000000000,
+	'lifetime' => 1*365*24*60,//Expiry date cannot have a year greater than 9999
 
 	'expire_on_close' => false,
 
